@@ -1,26 +1,54 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import { fetchData } from "./utils/api";
+import { Provider } from "react-redux";
+import { store } from "./redux/store"
+import Home from "./Components/Home";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Layout from "./Components/Layout";
+import Movies from "./Components/Movies";
+import TvShows from "./Components/TvShows";
 
 function App() {
-  useEffect(() => {
-    const callApi = async () => {
-      const fetchedData = await axios.get(
-        "https://api.themoviedb.org/3/movie/11",
+  // useEffect(() => {
+  //   fetchData("/movie/11", {})
+  //   .then((data) => {
+  //     console.log(data)
+  //   }).catch((err) => {
+  //     console.log(err);
+  //   })
+  // }, []);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element : <Layout />,
+      children: [
         {
-          headers: {
-            Authorization: `Bearer  eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhODdkNGZjOTE5MmE5NTNkY2ZhYTMzYzA5OWZkNjc4ZCIsInN1YiI6IjY1NDIwM2ZiMTM2NTQ1MDBmYzhhOTRmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZNpTZeaOEiY1jA_zFxOn9HMqQMmCWbmBHrv4khpxnJw`,
-            accept: "application/json",
-          },
+          path: "/",
+          element: <Home />
+        },
+        {
+          path: "movies",
+          element: <Movies />
+        },
+        {
+          path: "tvshows",
+          element: <TvShows />
         }
-      );
-      console.log(fetchedData);
-    };
+        
+      ]
+    }
+  ])
 
-    callApi();
-  }, []);
-
-  return <></>;
+  return (
+    <>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </>
+  );
 }
 
 export default App;
