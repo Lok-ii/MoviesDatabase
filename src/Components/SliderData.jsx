@@ -67,7 +67,7 @@ const SliderData = (props) => {
             : ele.vote_average;
 
               return (
-                <div className="carouselItem w-[20rem] rounded-2xl" key={ele.id}>
+                <div className="carouselItem" key={ele.id}>
                   <div className="posterBloc w-full rounded-2xl">
                     <span className="w-full">
                       <img className="w-full" src={baseUrl + ele.poster_path} alt="" />
@@ -108,7 +108,7 @@ const SliderData = (props) => {
                     <span className="w-full">
                       <img className="w-full" src={baseUrl + ele.poster_path} alt="" />
                     </span>
-                    <div className="circleRating w-16">
+                    <div className="circleRating w-8">
                       <CircularProgressbar
                         value={vote}
                         maxValue={10}

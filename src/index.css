@@ -72,3 +72,8 @@ button:focus-visible {
   margin: 0;
   padding: 0;
 }
+
+.carouselItem{
+  width: 90% !important;
+  border-radius: 2rem !important;
+}
