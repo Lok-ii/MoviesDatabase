@@ -4,8 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import poster from "../assets/poster.png";
 
 const SliderData = (props) => {
   const [switchToggle, setSwitch] = useState(true);
@@ -25,7 +26,32 @@ const SliderData = (props) => {
     slidesToShow: 5,
     slidesToScroll: 5,
     lazyLoad: "ondemand",
-
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+    ],
   };
   const baseUrl = "https://image.tmdb.org/t/p/original";
 
@@ -62,73 +88,147 @@ const SliderData = (props) => {
       <Slider className="w-[100%] px-8 rounded-2xl" {...settings}>
         {firstDisabled
           ? props.dataOne.map((ele) => {
-            const vote = ele.vote_average.toString().length > 3
-            ? ele.vote_average.toString().slice(0, 3)
-            : ele.vote_average;
+              const vote =
+                ele.vote_average.toString().length > 3
+                  ? ele.vote_average.toString().slice(0, 3)
+                  : ele.vote_average;
+
+              const ratingColor = vote >= 7 ? "#008101" : "#FFA401";
+
+              const mediaName =
+                ele.original_title ||
+                ele.original_name ||
+                ele.title ||
+                ele.name;
+
+              const displayText =
+                mediaName.length > 19
+                  ? `${mediaName.slice(0, 19)}...`
+                  : mediaName;
+
+              const posterImg = ele.poster_path
+                ? baseUrl + ele.poster_path
+                : poster;
 
               return (
-                <div className="carouselItem" key={ele.id}>
-                  <div className="posterBloc w-full rounded-2xl">
+                <div className="carouselItem cursor-pointer" key={ele.id}>
+                  <div className="posterBloc w-full rounded-2xl relative">
                     <span className="w-full">
-                      <img className="w-full" src={baseUrl + ele.poster_path} alt="" />
+                      <img className="w-full" src={posterImg} alt="" />
                     </span>
-                    <div className="circleRating w-16">
+                    <div className="circleRating w-12 absolute bottom-[-1.5rem] left-2">
                       <CircularProgressbar
                         value={vote}
                         maxValue={10}
                         text={vote.toString().slice(0, 3)}
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                          backgroundColor: "#fff",
+                          textColor: "#000",
+                          pathColor: ratingColor,
+                          trailColor: "transparent",
+                          textSize: "1.8rem",
+                        })}
                       />
                     </div>
-                    <div className="genres">
+                    <div className="genres flex items-center justify-end flex-wrap gap-1 w-1/2 absolute bottom-4 right-2">
                       {genereData.map((id) => {
                         if (
                           id.id === ele.genre_ids[0] ||
                           id.id === ele.genre_ids[1]
                         ) {
-                          return <div key={id.id}>{id.name}</div>;
+                          return (
+                            <p
+                              className="bg-[#DA2F68] px-2 py-1 rounded-lg text-xs"
+                              key={id.id}
+                            >
+                              {id.name}
+                            </p>
+                          );
                         }
                       })}
                     </div>
                   </div>
-                  <div className="textBlock">
-                    <span className="mediaTitle">{ele.original_title || ele.original_name || ele.title || ele.name}</span>
-                    <span className="date">{ele.release_date || ele.first_air_date}</span>
+                  <br />
+                  <div className="textBlock mt-2 flex flex-col gap-1 text-ellipsis whitespace-nowrap overflow-hidden">
+                    <span className="mediaTitle text-lg ">{displayText}</span>
+                    <span className="date text-xs font-semibold text-gray-400">
+                      {ele.release_date || ele.first_air_date}
+                    </span>
                   </div>
                 </div>
               );
             })
           : props.dataTwo.map((ele) => {
-            const vote = ele.vote_average.toString().length > 3
-            ? ele.vote_average.toString().slice(0, 3)
-            : ele.vote_average;
+              const vote =
+                ele.vote_average.toString().length > 3
+                  ? ele.vote_average.toString().slice(0, 3)
+                  : ele.vote_average;
+
+              const ratingColor = vote >= 7 ? "#008101" : "#FFA401";
+
+              const mediaName =
+                ele.original_title ||
+                ele.original_name ||
+                ele.title ||
+                ele.name;
+
+              const displayText =
+                mediaName.length > 19
+                  ? `${mediaName.slice(0, 19)}...`
+                  : mediaName;
+
+              const posterImg = ele.poster_path
+                ? baseUrl + ele.poster_path
+                : poster;
 
               return (
-                <div className="carouselItem w-[20rem]" key={ele.id}>
-                  <div className="posterBloc w-full">
+                <div className="carouselItem cursor-pointer" key={ele.id}>
+                  <div className="posterBloc w-full rounded-2xl relative">
                     <span className="w-full">
-                      <img className="w-full" src={baseUrl + ele.poster_path} alt="" />
+                      <img className="w-full" src={posterImg} alt="" />
                     </span>
-                    <div className="circleRating w-8">
+                    <div className="circleRating w-12 absolute bottom-[-1.5rem] left-2">
                       <CircularProgressbar
                         value={vote}
                         maxValue={10}
                         text={vote.toString().slice(0, 3)}
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                          backgroundColor: "#fff",
+                          textColor: "#000",
+                          pathColor: ratingColor,
+                          trailColor: "transparent",
+                          textSize: "1.8rem",
+                        })}
                       />
                     </div>
-                    <div className="genres">
+                    <div className="genres flex items-center justify-end flex-wrap gap-1 w-1/2 absolute bottom-4 right-2">
                       {genereData.map((id) => {
                         if (
                           id.id === ele.genre_ids[0] ||
                           id.id === ele.genre_ids[1]
                         ) {
-                          return <div key={id.id}>{id.name}</div>;
+                          return (
+                            <p
+                              className="bg-[#DA2F68] px-2 py-1 rounded-lg text-xs"
+                              key={id.id}
+                            >
+                              {id.name}
+                            </p>
+                          );
                         }
                       })}
                     </div>
                   </div>
-                  <div className="textBlock">
-                    <span className="mediaTitle">{ele.original_title}</span>
-                    <span className="date">{ele.release_date}</span>
+                  <br />
+                  <div className="textBlock mt-2 flex flex-col gap-1 text-ellipsis whitespace-nowrap overflow-hidden">
+                    <span className="mediaTitle text-lg ">{displayText}</span>
+                    <span className="date text-xs font-semibold text-gray-400">
+                      {ele.release_date || ele.first_air_date}
+                    </span>
                   </div>
                 </div>
               );
