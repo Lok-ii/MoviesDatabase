@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     popularMovies: [],
     popularTvShows: [],
-    upcomingMovies: [],
+    topMovies: [],
+    topTvShows: [],
     trendingDay: [],
     trendingWeek: [],
     genre: [],
@@ -19,8 +20,11 @@ const homeSlice = createSlice({
         setPopularTvShows: (state, action) => {
             state.popularTvShows = action.payload.results;
         },
-        setUpcomingMovies: (state, action) => {
-            state.upcomingMovies = action.payload.results;
+        setTopMovies: (state, action) => {
+            state.topMovies = action.payload.results;
+        },
+        setTopTvShows: (state, action) => {
+            state.topTvShows = action.payload.results;
         },
         setTrendingDay:  (state, action) => {
             state.trendingDay = action.payload.results;
@@ -34,6 +38,6 @@ const homeSlice = createSlice({
     }
 });
 
-export const { setPopularMovies, setPopularTvShows, setUpcomingMovies, setTrendingDay, setTrendingWeek, setGenre } = homeSlice.actions;
+export const { setPopularMovies, setPopularTvShows, setTopMovies, setTopTvShows, setTrendingDay, setTrendingWeek, setGenre } = homeSlice.actions;
 
 export default homeSlice.reducer;

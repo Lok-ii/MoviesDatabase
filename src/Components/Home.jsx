@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPopularMovies,
   setPopularTvShows,
-  setUpcomingMovies,
+  setTopMovies,
+  setTopTvShows,
   setTrendingDay,
   setTrendingWeek,
   setGenre,
@@ -43,7 +44,7 @@ const Home = () => {
 
     getTrendingWeek();
 
-    const getMovies = async () => {
+    const getPopularMovies = async () => {
       try {
         const data = await fetchData("/movie/popular", commonApiParams);
         console.log(data);
@@ -51,9 +52,10 @@ const Home = () => {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
+    getPopularMovies();
 
-    const getTvShows = async () => {
+    const getPopularTvShows = async () => {
       try {
         const data = await fetchData("/tv/popular", commonApiParams);
         console.log(data);
@@ -63,18 +65,29 @@ const Home = () => {
       }
     };
 
-    getTvShows();
+    getPopularTvShows();
 
-    const getUpcomingMovies = async () => {
+    const getTopMovies = async () => {
       try {
-        const data = await fetchData("/movie/upcoming", commonApiParams);
+        const data = await fetchData("/movie/top_rated", commonApiParams);
         console.log(data);
-        dispatch(setUpcomingMovies(data));
+        dispatch(setTopMovies(data));
       } catch (error) {
         console.log(error);
       }
     };
-    getUpcomingMovies();
+    getTopMovies();
+
+    const getTopTvShows = async () => {
+      try {
+        const data = await fetchData("/tv/top_rated", commonApiParams);
+        console.log(data);
+        dispatch(setTopTvShows(data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTopTvShows();
 
     const fetchGenre = async () => {
       try {
@@ -90,8 +103,10 @@ const Home = () => {
 
   const trendingDay = useSelector((store) => store.home.trendingDay);
   const trendingWeek = useSelector((store) => store.home.trendingWeek);
-  const popularMovies = useSelector(store => store.home.popularMovies);
-  const popularTvShows = useSelector(store => store.home.popularTvShows);
+  const popularMovies = useSelector((store) => store.home.popularMovies);
+  const popularTvShows = useSelector((store) => store.home.popularTvShows);
+  const topMovies = useSelector(store => store.home.topMovies);
+  const topTvShows = useSelector(store => store.home.topTvShows);
 
   return (
     <div className="home w-full text-white flex flex-col items-center">
@@ -115,17 +130,24 @@ const Home = () => {
         </form>
       </div>
       <div className="dataSliders w-full flex flex-col items-center gap-16">
-      <SliderData
-        name="Trending"
-        toggle={["Day", "Week"]}
-        dataOne={trendingDay}
-        dataTwo={trendingWeek}
-      />
-      <SliderData 
-        name="What's Popular"
-        toggle={["Movies", "Tv Shows"]}
-        dataOne={popularMovies}
-        dataTwo={popularTvShows} />
+        <SliderData
+          name="Trending"
+          toggle={["Day", "Week"]}
+          dataOne={trendingDay}
+          dataTwo={trendingWeek}
+        />
+        <SliderData
+          name="What's Popular"
+          toggle={["Movies", "Tv Shows"]}
+          dataOne={popularMovies}
+          dataTwo={popularTvShows}
+        />
+        <SliderData
+          name="Top Rated"
+          toggle={["Movies", "Tv Shows"]}
+          dataOne={topMovies}
+          dataTwo={topTvShows}
+        />
       </div>
     </div>
   );

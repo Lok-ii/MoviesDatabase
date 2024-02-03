@@ -24,19 +24,19 @@ const SliderData = (props) => {
     speed: 1000,
     slidesToShow: 5,
     slidesToScroll: 5,
-    lazyLoad: "progressive",
+    lazyLoad: "ondemand",
 
   };
   const baseUrl = "https://image.tmdb.org/t/p/original";
 
   return (
-    <div className="sliderSection w-[80%] flex flex-col gap-4 p-8">
+    <div className="sliderSection w-[90%] flex flex-col gap-4 p-8">
       <div className="title flex items-center justify-between">
         <p className="text-2xl">{props.name}</p>
         <div className="toggleSection flex items-center gap-10 rounded-[2rem] font-medium bg-white text-extraTextColor w-[15rem] h-[2rem] relative transition-all duration-300">
           <div
-            className={`absolute bg-buttonGradient w-[50%] h-[95%] rounded-[2rem] ${
-              switchToggle ? " left-[1.5%]" : "left-[48.5%]"
+            className={`absolute bg-buttonGradient w-[50%] h-[90%] rounded-[2rem] ${
+              switchToggle ? " left-[0.5%]" : "left-[49.2%]"
             } transition-all duration-300 ease-in-out`}
           ></div>
           <button
@@ -59,7 +59,7 @@ const SliderData = (props) => {
           </button>
         </div>
       </div>
-      <Slider className="w-[100%] px-8" {...settings}>
+      <Slider className="w-[100%] px-8 rounded-2xl" {...settings}>
         {firstDisabled
           ? props.dataOne.map((ele) => {
             const vote = ele.vote_average.toString().length > 3
@@ -91,8 +91,8 @@ const SliderData = (props) => {
                     </div>
                   </div>
                   <div className="textBlock">
-                    <span className="mediaTitle">{ele.original_title}</span>
-                    <span className="date">{ele.release_date}</span>
+                    <span className="mediaTitle">{ele.original_title || ele.original_name || ele.title || ele.name}</span>
+                    <span className="date">{ele.release_date || ele.first_air_date}</span>
                   </div>
                 </div>
               );
