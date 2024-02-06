@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchData } from "../utils/api";
+import { fetchData } from "../utils/Api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setPopularMovies,

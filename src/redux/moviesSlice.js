@@ -8,7 +8,7 @@ const moviesSlice = createSlice({
     name: "movies",
     initialState: initialState,
     reducers: {
-
+        
     }
 });
 

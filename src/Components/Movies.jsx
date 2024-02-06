@@ -8,6 +8,7 @@ const Movies = () => {
       <h1>Explore Movies</h1>
       <div>
         <select name="movieGenre" id="movieGenre">
+          
           {
             genre.map(item => {
               return <option value="">{item.name}</option>
