@@ -9,6 +9,7 @@ export default {
         backgroundColor: '#04152D',
         extraTextColor: '#04152D',
         lightBackground:  'rgba(3, 9, 27, .5)',
+        pinkText: "#da2f68",
       },
       backgroundImage : {
         gradientImage: `linear-gradient(transparent 10%, #04152D 90%), url("https://image.tmdb.org/t/p/original/meyhnvssZOPPjud4F1CjOb4snET.jpg")`,

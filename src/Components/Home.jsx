@@ -101,12 +101,14 @@ const Home = () => {
     fetchGenre();
   }, []);
 
-  const trendingDay = useSelector((store) => store.home.trendingDay);
-  const trendingWeek = useSelector((store) => store.home.trendingWeek);
-  const popularMovies = useSelector((store) => store.home.popularMovies);
-  const popularTvShows = useSelector((store) => store.home.popularTvShows);
-  const topMovies = useSelector(store => store.home.topMovies);
-  const topTvShows = useSelector(store => store.home.topTvShows);
+  const {
+    trendingDay,
+    trendingWeek,
+    popularMovies,
+    popularTvShows,
+    topMovies,
+    topTvShows,
+  } = useSelector((store) => store.home);
 
   return (
     <div className="home w-full text-white flex flex-col items-center">

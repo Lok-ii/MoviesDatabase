@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./Components/Layout";
 import Movies from "./Components/Movies";
 import TvShows from "./Components/TvShows";
+import DetailsPage from "./Components/MovieDetail/DetailsPage";
 
 function App() {
 
@@ -26,6 +27,10 @@ function App() {
         {
           path: "tvshows",
           element: <TvShows />
+        },
+        {
+          path: "details/:id",
+          element: <DetailsPage />
         }
         
       ]
