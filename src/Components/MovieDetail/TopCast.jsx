@@ -28,9 +28,9 @@ const TopCast = () => {
 
     getTopCast();
   }, [param.id]);
-  return <div className="w-[75%] flex flex-col gap-8">
-    <h1>Top Casts</h1>
-    <div className="w-full flex items-center gap-8 justify-start overflow-x-scroll">
+  return <div className="w-[83%] flex flex-col gap-8">
+    <p className="text-2xl font-medium">Top Casts</p>
+    <div className="w-full px-10 flex items-center gap-8 justify-start overflow-x-scroll">
     {
       topCast.map((cast) => {
         let profileImg = baseUrl + cast.profile_path;

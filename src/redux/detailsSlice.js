@@ -9,6 +9,7 @@ const initialState = {
     vote: "",
     mediaName: "",
     posterImg: "",
+    backdropImg: "",
     ratingColor: "",
     crew: [],
     modalIsOpen: "hidden",
@@ -40,6 +41,7 @@ const  mediaSlice = createSlice({
             state.mediaName = action.payload.name;
             state.posterImg= action.payload.image;
             state.ratingColor = action.payload.color;
+            state.backdropImg = action.payload.backdropImg;
         },
         setModal : (state, action) => {
             state.modalIsOpen = action.payload;

@@ -42,8 +42,8 @@ const OfficialVideos = () => {
   // });
   return (
     videos.length !== 0 && (
-      <div className="w-[75%] flex flex-col gap-8">
-        <h1>Official Videos</h1>
+      <div className="w-[83%] flex flex-col gap-8">
+        <p className="text-2xl font-medium">Official Videos</p>
         {/*  */}
 
         <div
@@ -51,7 +51,7 @@ const OfficialVideos = () => {
         >
           {/* <ReactPlayer url={playerVideo} /> */}
         </div>
-        <div className="w-full flex justify-start gap-4 overflow-x-scroll">
+        <div className="w-full px-10 h-[12.5rem] flex justify-start gap-4 overflow-x-scroll">
           {videos.map((video) => {
             return (
               <div
