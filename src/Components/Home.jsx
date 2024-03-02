@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { fetchData } from "../utils/Api";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,16 +10,19 @@ import {
   setTrendingWeek,
   setGenre,
 } from "../redux/homeSlice";
-import Header from "./Header";
 import SliderData from "./SliderData";
+import { useNavigate } from "react-router-dom";
+import { setFilters } from "../redux/exploreSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
+  const searchRef = useRef();
+  useEffect(() => {
   const commonApiParams = {
     language: "en-US",
     page: 1,
   };
-  useEffect(() => {
     const getTrendingDay = async () => {
       try {
         const data = await fetchData("/trending/all/day", commonApiParams);
@@ -99,7 +102,7 @@ const Home = () => {
       }
     };
     fetchGenre();
-  }, []);
+  }, [dispatch]);
 
   const {
     trendingDay,
@@ -120,12 +123,17 @@ const Home = () => {
         <form action="" className="w-[60%] flex items-center rounded-[2rem]">
           <input
             type="text"
-            className="w-[80%] h-14 outline-none px-6 rounded-l-[2rem]"
+            className="w-[80%] h-14 outline-none px-6 rounded-l-[2rem] text-gray-700"
             placeholder="Search for a movie, TV show or person"
+            ref={searchRef}
           ></input>
           <button
             type="submit"
             className="w-[20%] h-14 rounded-r-[2rem] bg-buttonGradient"
+            onClick={() => {
+              // dispatch(setFilters({type: "with_keywords", value: searchRef.current.value}))
+              navigateTo(`/search/${searchRef.current.value}`)
+            }}
           >
             Search
           </button>

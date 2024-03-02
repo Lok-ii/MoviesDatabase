@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
+import PropTypes from 'prop-types';
 
 const LeftArrow = ({ className, style, onClick }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -24,5 +25,12 @@ const LeftArrow = ({ className, style, onClick }) => {
     />
   );
 };
+
+LeftArrow.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
+  onClick: PropTypes.func,
+};
+
 
 export default LeftArrow;

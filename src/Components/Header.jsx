@@ -11,7 +11,7 @@ const Header = () => {
     setSearchHidden((prev) => !prev);
   };
   return (
-    <header className="w-full h-[5rem] flex items-center justify-between px-32 py-4 bg-lightBackground backdrop-blur-sm relative">
+    <header className="w-full sticky top-0 h-[5rem] flex items-center justify-between px-32 py-4 bg-lightBackground backdrop-blur-sm z-30">
       <div className="logo w-[5rem] h-full">
         <NavLink to={"/"}>
           <img className="w-full h-full" src={brandLogo} alt="" />
@@ -19,22 +19,22 @@ const Header = () => {
       </div>
       <nav className="navbar flex items-center gap-8 text-mainText font-semibold">
         <NavLink
-          to={"/movies"}
+          to={"/explore/movie"}
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-hoverText" : ""
+            isPending ? "pending" : isActive ? "text-hoverText" : " hover:text-hoverText transition"
           }
         >
           Movies
         </NavLink>
         <NavLink
-          to={"/tvshows"}
+          to={"/explore/tv"}
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-hoverText" : ""
+            isPending ? "pending" : isActive ? "text-hoverText" : " hover:text-hoverText transition"
           }
         >
           Tv Shows
         </NavLink>
-        <CiSearch onClick={hideSearch} className="cursor-pointer" />
+        <CiSearch onClick={hideSearch} className="cursor-pointer hover:text-hoverText transition" />
         <form
           action=""
           className={`absolute w-full transition-all duration-300 left-0 ${

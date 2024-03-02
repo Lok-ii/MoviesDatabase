@@ -16,11 +16,11 @@
 .svgHover:hover svg .triangle {
   stroke-dashoffset: 0;
   opacity: 1;
-  stroke: "#da2f68" !important;
+  stroke: #da2f68 !important;
   animation: trailorPlay 0.7s ease-in-out;
 }
 
 .svgHover:hover svg .circle {
   stroke-dashoffset: 0;
-  stroke: "#da2f68" !important;
+  stroke: #da2f68 !important;
 }

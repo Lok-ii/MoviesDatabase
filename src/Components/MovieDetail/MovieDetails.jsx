@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setCurrentMedia, setDetails } from "../../redux/detailsSlice";
 import { fetchData } from "../../utils/Api";
-import { current } from "@reduxjs/toolkit";
 import poster from "../../assets/poster.png";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import Play from "../../assets/svg/Play";
-import { easeQuadInOut } from "d3-ease";
 
 const MovieDetails = () => {
   const param = useParams();
@@ -23,11 +21,10 @@ const MovieDetails = () => {
   } = useSelector((state) => state.media);
   const baseUrl = "https://image.tmdb.org/t/p/original";
 
-  const commonApiParams = {
-    language: "en-US",
-  };
-
   useEffect(() => {
+    const commonApiParams = {
+      language: "en-US",
+    };
     const url = `/movie/${param.id}`;
     console.log("fetched", url);
     const getDetails = async () => {
@@ -71,7 +68,7 @@ const MovieDetails = () => {
     };
 
     getDetails();
-  }, [param.id]);
+  }, [param.id, dispatch]);
 
   return (
     currentMedia !== undefined &&
@@ -118,7 +115,7 @@ const MovieDetails = () => {
                   maxValue={10}
                   text={vote.toString().slice(0, 3)}
                   background
-                  backgroundPadding={6}
+                  backgroundPadding={2}
                   styles={buildStyles({
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
                     textColor: "#fff",
@@ -129,8 +126,10 @@ const MovieDetails = () => {
                   })}
                 />
               </div>
-              <div className="svgHover w-1/2 h-full flex gap-4 items-center group hover:cursor-pointer">
-                <Play />
+              <div className="svgHover h-full flex gap-4 items-center group hover:cursor-pointer">
+                <div className="w-[6rem]">
+                  <Play />
+                </div>
                 <span className="text text-xl group-hover:text-pinkText transition-all duration-700">
                   Watch Trailer
                 </span>

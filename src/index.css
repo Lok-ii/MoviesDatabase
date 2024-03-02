@@ -25,43 +25,6 @@ body {
   background-color: #04152D;
 }
 
-/* h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
-
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
-
 .navList {
   list-style: none;
 }
@@ -80,4 +43,27 @@ button:focus-visible {
 
 ::-webkit-scrollbar{
   display: none;
+}
+
+
+.css-13cymwt-control{
+  /* border-radius: 999px !important; */
+  background-color: #163D76 !important;
+  color: white !important; 
+}
+
+/* .css-1i837h3-ValueContainer2{
+  border-radius: 999px 0 0 999px !important;
+}
+
+.css-4xgw5l-IndicatorsContainer2{
+  border-radius: 0 999px 999px 0 !important;
+} */
+
+.css-1p3m7a8-multiValue{
+  background-color: black !important;
+}
+
+.css-1y7rh0y-MultiValueGeneric2{
+  color: white !important;
 }

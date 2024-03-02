@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setVideos, setModal, setPlayerVideo } from "../../redux/detailsSlice";
 import { fetchData } from "../../utils/Api";
-import ReactPlayer from "react-player/lazy";
+// import ReactPlayer from "react-player/lazy";
 import Play from "../../assets/svg/Play";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -11,15 +11,13 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 const OfficialVideos = () => {
   const param = useParams();
   const dispatch = useDispatch();
-  const { videos, modalIsOpen, playerVideo } = useSelector(
-    (state) => state.media
-  );
+  const { videos } = useSelector((state) => state.media);
   const baseVideoUrl = "https://www.youtube.com/watch?v=";
-  const commonApiParams = {
-    language: "en-US",
-  };
 
   useEffect(() => {
+    const commonApiParams = {
+      language: "en-US",
+    };
     const url = `/movie/${param.id}`;
     const getVideos = async () => {
       try {
@@ -32,7 +30,7 @@ const OfficialVideos = () => {
     };
 
     getVideos();
-  }, [param.id]);
+  }, [param.id, dispatch]);
 
   // document.addEventListener("click", (e) => {
   //   if ((!(e.target.classList.contains("modal"))) && (!(e.target.classList.contains("svgHover")))) {
@@ -57,14 +55,15 @@ const OfficialVideos = () => {
               <div
                 key={video.id}
                 id={video.id}
-                className="svgHover commonClass flex items-center justify-center rounded-[1rem] cursor-pointer"
+                className="svgHover commonClass relative flex items-center justify-center rounded-[1rem] cursor-pointer group"
                 onClick={(e) => {
                   console.log("Clicked on", e.target);
                   dispatch(setPlayerVideo(`${baseVideoUrl + video.key}`));
                   dispatch(setModal("flex"));
                 }}
               >
-                <div className="relative commonClass w-[20rem] h-[11rem] rounded-[1rem]">
+                <div className="hiddenBackground w-[20rem] h-[11.5rem] rounded-[1rem] top-3 absolute bg-lightBackground z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out"></div>
+                <div className="relative commonClass w-[20rem] h-[11rem] z-10 rounded-[1rem]">
                   {/* <img
                   className="w-full h-full object-contain commonClass rounded-[1rem]"
                   src={
@@ -82,7 +81,7 @@ const OfficialVideos = () => {
                     effect="blur"
                     alt=""
                   />
-                  <div className="absolute commonClass top-[25%] left-[40%]">
+                  <div className="absolute w-12 commonClass top-[35%] left-[40%]">
                     <Play />
                   </div>
                 </div>

@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store"
 import Home from "./Components/Home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./Components/Layout";
-import Movies from "./Components/Movies";
-import TvShows from "./Components/TvShows";
 import DetailsPage from "./Components/MovieDetail/DetailsPage";
+import Explore from "./Components/Explore/Explore";
+import Search from "./Components/Search/Search";
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -21,16 +20,16 @@ function App() {
           element: <Home />
         },
         {
-          path: "movies",
-          element: <Movies />
-        },
-        {
-          path: "tvshows",
-          element: <TvShows />
+          path: "explore/:mediaType",
+          element: <Explore />
         },
         {
           path: "details/:id",
           element: <DetailsPage />
+        },
+        {
+          path: "search/:searchKeyword",
+          element: <Search />
         }
         
       ]

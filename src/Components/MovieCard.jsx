@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from 'prop-types';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
@@ -26,9 +26,9 @@ const MovieCard = ({ele}) => {
   const posterImg = ele.poster_path ? baseUrl + ele.poster_path : poster;
 
   return (
-    <Link to={"/details/" + ele.id} key={ele.id}>
+    <Link to={"/details/" + ele.id} className='w-[19%]'>
       <div className="carouselItem cursor-pointer">
-        <div className="posterBloc w-full rounded-2xl relative">
+        <div className="posterBloc w-full rounded-2xl h-full relative">
           <span className="w-full rounded-[1rem]">
             <LazyLoadImage
               className="w-full rounded-[1rem]"
@@ -43,7 +43,7 @@ const MovieCard = ({ele}) => {
               maxValue={10}
               text={vote.toString().slice(0, 3)}
               background
-              backgroundPadding={1}
+              backgroundPadding={4}
               styles={buildStyles({
                 backgroundColor: "#fff",
                 textColor: "#000",
@@ -78,6 +78,10 @@ const MovieCard = ({ele}) => {
       </div>
     </Link>
   );
+};
+
+MovieCard.propTypes = {
+  ele: PropTypes.object.isRequired,
 };
 
 export default MovieCard;

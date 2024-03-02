@@ -1,4 +1,3 @@
-import React from "react";
 import "./Play.css";
 
 const Play = () => {
@@ -14,6 +13,7 @@ const Play = () => {
       viewBox="0 0 213.7 213.7"
       enableBackground="new 0 0 213.7 213.7"
       xmlSpace="preserve"
+      className="w-full h-full"
     >
       <polygon
         className="triangle"
