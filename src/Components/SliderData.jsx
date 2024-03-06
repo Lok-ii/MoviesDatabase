@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,7 +17,6 @@ const SliderData = (props) => {
     setFirstDisabled((prev) => !prev);
     setSecondDisabled((prev) => !prev);
   };
-
 
   const settings = {
     infinite: false,
@@ -90,22 +89,35 @@ const SliderData = (props) => {
       <Slider className="w-[100%] px-8 rounded-2xl" {...settings}>
         {firstDisabled
           ? props.dataOne.map((ele) => {
-              return <MovieCard ele={ele} key={ele.id} />;
+              return (
+                <MovieCard
+                  ele={ele}
+                  endPoint={props.endPoint || "movie"}
+                  key={ele.id}
+                />
+              );
             })
           : props.dataTwo.map((ele) => {
-              return <MovieCard ele={ele} key={ele.id} />;
+              return (
+                <MovieCard
+                  ele={ele}
+                  endPoint={props.endPoint || "tv"}
+                  key={ele.id}
+                />
+              );
             })}
       </Slider>
     </div>
   );
 };
 
- // Define PropTypes
- SliderData.propTypes = {
+// Define PropTypes
+SliderData.propTypes = {
   name: PropTypes.string.isRequired,
   toggle: PropTypes.array,
   dataOne: PropTypes.array,
   dataTwo: PropTypes.array,
+  endPoint: PropTypes.string,
   // ... other props
 };
 

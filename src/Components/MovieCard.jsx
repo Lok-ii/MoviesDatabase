@@ -6,27 +6,28 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import poster from "../assets/poster.png";
 import { useSelector } from "react-redux";
+import { useMemo, useCallback } from 'react';
 
-const MovieCard = ({ele}) => {
+// Component
+const MovieCard = ({ ele, endPoint }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original";
-  const genereData = useSelector((state) => state.home.genre);
-  const vote =
-    ele.vote_average.toString().length > 3
-      ? ele.vote_average.toString().slice(0, 3)
-      : ele.vote_average;
-
+  const genres = useSelector((state) => state.home.genre);
+  const vote = ele.vote_average.toString().length > 3 ? ele.vote_average.toString().slice(0, 3) : ele.vote_average;
   const ratingColor = vote >= 7 ? "#008101" : "#FFA401";
-
-  const mediaName =
-    ele.original_title || ele.original_name || ele.title || ele.name;
-
-  const displayText =
-    mediaName.length > 19 ? `${mediaName.slice(0, 19)}...` : mediaName;
-
+  const mediaName = ele.original_title || ele.original_name || ele.title || ele.name;
+  const displayText = mediaName.length > 19 ? `${mediaName.slice(0, 19)}...` : mediaName;
   const posterImg = ele.poster_path ? baseUrl + ele.poster_path : poster;
 
+  const getGenre = useCallback((id) => {
+    return genres.find((g) => g.id === id);
+  }, [genres]);
+
+  const genreList = useMemo(() => {
+    return ele.genre_ids.map((id) => getGenre(id)).filter((g) => g);
+  }, [ele.genre_ids, getGenre]);
+
   return (
-    <Link to={"/details/" + ele.id} className='w-[19%]'>
+    <Link to={`/details/${ele.media_type || endPoint}/${ele.id}`} className='w-[19%]'>
       <div className="carouselItem cursor-pointer">
         <div className="posterBloc w-full rounded-2xl h-full relative">
           <span className="w-full rounded-[1rem]">
@@ -54,18 +55,14 @@ const MovieCard = ({ele}) => {
             />
           </div>
           <div className="genres flex items-center justify-end flex-wrap gap-1 w-1/2 absolute bottom-4 right-2">
-            {genereData.map((id) => {
-              if (id.id === ele.genre_ids[0] || id.id === ele.genre_ids[1]) {
-                return (
-                  <p
-                    className="bg-[#DA2F68] px-2 py-1 rounded-lg text-xs"
-                    key={id.id}
-                  >
-                    {id.name}
-                  </p>
-                );
-              }
-            })}
+            {genreList.map((g) => (
+              <p
+                className="bg-[#DA2F68] px-2 py-1 rounded-lg text-xs"
+                key={g.id}
+              >
+                {g.name}
+              </p>
+            ))}
           </div>
         </div>
         <br />
@@ -82,6 +79,7 @@ const MovieCard = ({ele}) => {
 
 MovieCard.propTypes = {
   ele: PropTypes.object.isRequired,
+  endPoint: PropTypes.string.isRequired,
 };
 
 export default MovieCard;

@@ -13,14 +13,13 @@ import { DNA } from "react-loader-spinner";
 
 const Search = () => {
   const { searchKeyword } = useParams();
-  console.log(searchKeyword);
   const dispatch = useDispatch();
   const { searchList, searchPage, totalSearchPages } = useSelector(
     (state) => state.home
   );
 
   const increasePageNum = () => {
-    dispatch(setSearchPage(1));
+    dispatch(setSearchPage(searchPage + 1));
   };
 
   useEffect(() => {
@@ -31,10 +30,8 @@ const Search = () => {
           page: searchPage,
           query: searchKeyword,
         });
-        console.log(data);
         dispatch(setSearchList(data.results));
         dispatch(setTotalSearchPages(data.total_pages));
-
       } catch (error) {
         console.log(error);
       }
@@ -71,9 +68,9 @@ const Search = () => {
               />
             }
           >
-            {searchList?.map((item) => {
-              return <MovieCard key={item.id} ele={item} />;
-            })}
+            {searchList?.map((item) => (
+              <MovieCard key={item.id} endPoint={item.media_type} ele={item} />
+            ))}
           </InfiniteScroll>
         ) : (
           <span className="resultNotFound">Sorry, Results not found!</span>

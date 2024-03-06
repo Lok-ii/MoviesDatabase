@@ -12,7 +12,6 @@ import {
 } from "../redux/homeSlice";
 import SliderData from "./SliderData";
 import { useNavigate } from "react-router-dom";
-import { setFilters } from "../redux/exploreSlice";
 
 const Home = () => {
   const dispatch = useDispatch();

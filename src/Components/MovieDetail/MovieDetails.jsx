@@ -18,6 +18,7 @@ const MovieDetails = () => {
     ratingColor,
     mediaName,
     crew,
+    date,
   } = useSelector((state) => state.media);
   const baseUrl = "https://image.tmdb.org/t/p/original";
 
@@ -25,7 +26,7 @@ const MovieDetails = () => {
     const commonApiParams = {
       language: "en-US",
     };
-    const url = `/movie/${param.id}`;
+    const url = `/${param.mediaType}/${param.id}`;
     console.log("fetched", url);
     const getDetails = async () => {
       try {
@@ -53,6 +54,8 @@ const MovieDetails = () => {
           ? baseUrl + data.backdrop_path
           : "";
 
+        const date = data.release_date || data.first_air_date || "";
+
         dispatch(
           setDetails({
             vote: vote,
@@ -60,6 +63,7 @@ const MovieDetails = () => {
             color: ratingColor,
             image: posterImg,
             backdropImg: backdropImg,
+            date: date,
           })
         );
       } catch (err) {
@@ -68,7 +72,7 @@ const MovieDetails = () => {
     };
 
     getDetails();
-  }, [param.id, dispatch]);
+  }, [param.id, dispatch, param.mediaType]);
 
   return (
     currentMedia !== undefined &&
@@ -80,17 +84,14 @@ const MovieDetails = () => {
           backgroundImage: `linear-gradient(transparent 0%, rgb(4, 21, 45, 0.9) 0), url(${backdropImg})`,
         }}
       >
-        <div className="w-[75%] h-[70vh] my-8 justify-between flex items-center">
-          <div className="w-[30%] h-full rounded-lg">
+        <div className="w-[75%] min-h-[70vh] my-8 justify-between flex ">
+          <div className="w-[30%] h-[70vh] rounded-lg self-start">
             <img className="w-full h-full rounded-lg" src={posterImg} alt="" />
           </div>
           <div className="w-[66%] h-full flex flex-col gap-5">
             <div className="flex flex-col">
               <h1 className="text-4xl font-semibold text-white">
-                {mediaName} (
-                {currentMedia.release_date.substr(0, 4) ||
-                  currentMedia.first_air_date.substr(0, 4)}
-                )
+                {mediaName} ({date.substr(0, 4)})
               </h1>
               <p className="text-lg font-semibold text-gray-500">
                 {currentMedia.tagline}
@@ -126,7 +127,7 @@ const MovieDetails = () => {
                   })}
                 />
               </div>
-              <div className="svgHover h-full flex gap-4 items-center group hover:cursor-pointer">
+              <div className="svgHover h-full flex gap-4 items-center group hover:cursor-pointer" >
                 <div className="w-[6rem]">
                   <Play />
                 </div>
@@ -145,17 +146,21 @@ const MovieDetails = () => {
                 <span className="text-gray-500">{currentMedia.status}</span>
               </p>
               <p className="text-[1rem] font-medium">
-                Release Date:{" "}
-                <span className="text-gray-500">
-                  {currentMedia.release_date}
-                </span>
+                Release Date: <span className="text-gray-500">{date}</span>
               </p>
-              <p className="text-[1rem] font-medium">
-                Runtime:{" "}
-                <span className="text-gray-500">{`${Math.floor(
-                  currentMedia.runtime / 60
-                )}h ${currentMedia.runtime % 60}m`}</span>
-              </p>
+              {currentMedia.runtime ? (
+                <p className="text-[1rem] font-medium">
+                  Runtime:{" "}
+                  <span className="text-gray-500">{`${Math.floor(
+                    currentMedia.runtime / 60
+                  )}h ${currentMedia.runtime % 60}m`}</span>
+                </p>
+              ) : (
+                <p className="text-[1rem] font-medium">
+                  Episode Time:{" "}
+                  <span className="text-gray-500">{currentMedia.episode_run_time}m</span>
+                </p>
+              )}
             </div>
             <div className="flex flex-col">
               {crew.map((item) => {

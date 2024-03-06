@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import Select from "react-select";
 import { fetchData } from "../../utils/Api";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,20 +27,17 @@ const Explore = () => {
     return { value: item.id, label: item.name };
   });
 
-  const sortData = [
+  const sortData = useMemo(() => [
     { value: "popularity.desc", label: "Popularity Descending" },
     { value: "popularity.asc", label: "Popularity Ascending" },
     { value: "vote_average.desc", label: "Rating Descending" },
     { value: "vote_average.asc", label: "Rating Ascending" },
-    {
-      value: "primary_release_date.desc",
-      label: "Release Date Descending",
-    },
+    { value: "primary_release_date.desc", label: "Release Date Descending" },
     { value: "primary_release_date.asc", label: "Release Date Ascending" },
     { value: "original_title.asc", label: "Title (A-Z)" },
-  ];
+  ], []);
 
-  const handleGenre = (selectedOptions) => {
+  const handleGenre = useCallback((selectedOptions) => {
     const genre = selectedOptions.reduce((acc, item, idx, arr) => {
       if (idx !== arr.length - 1) {
         return acc + item.value + ",";
@@ -48,15 +45,17 @@ const Explore = () => {
       return acc + item.value;
     }, "");
     dispatch(setMediaList({ type: "new", data: [] }));
-    dispatch(setFilters({ type: "with_genre", value: genre }));
-  };
+    dispatch(setFilters({ type: "with_genres", value: genre }));
+  }, [dispatch]);
 
-  const handleSort = (selectedOption) => {
-    console.log(selectedOption);
-    dispatch(setMediaList({ type: "new", data: [] }));
-    dispatch(setFilters({ type: "sort_by", value: selectedOption.value }));
-  };
-
+  const handleSort = useCallback(
+    (selectedOption) => {
+      console.log(selectedOption);
+      dispatch(setMediaList({ type: "new", data: [] }));
+      dispatch(setFilters({ type: "sort_by", value: selectedOption.value }));
+    },
+    [dispatch]
+  );
   const increasePageNum = () => {
     dispatch(setFilters({ type: "page", value: filters.page + 1 }));
   };
@@ -80,7 +79,7 @@ const Explore = () => {
       }
     };
     fetchGenre();
-  }, [mediaType, dispatch]);
+  }, [mediaType, dispatch, handleGenre, handleSort, sortData]);
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -151,7 +150,9 @@ const Explore = () => {
               }
             >
               {mediaList?.map((item) => {
-                return <MovieCard key={item.id} ele={item} />;
+                return (
+                  <MovieCard key={item.id} endPoint={mediaType} ele={item} />
+                );
               })}
             </InfiniteScroll>
           ) : (

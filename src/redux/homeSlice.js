@@ -43,11 +43,7 @@ const homeSlice = createSlice({
       state.totalSearchPages = action.payload;
     },
     setSearchPage: (state, action) => {
-      if (action.payload === 1) {
-        state.searchPage = state.searchPage + 1;
-      } else {
-        state.searchPage = 1;
-      }
+        state.searchPage = action.payload;
     },
     setSearchList : (state, action) => {
         if(action.payload.length !== 0){

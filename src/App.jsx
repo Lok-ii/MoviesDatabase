@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./App.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store"
@@ -24,7 +23,7 @@ function App() {
           element: <Explore />
         },
         {
-          path: "details/:id",
+          path: "details/:mediaType/:id",
           element: <DetailsPage />
         },
         {

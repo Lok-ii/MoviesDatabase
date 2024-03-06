@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setRecommendations } from "../../redux/detailsSlice";
@@ -10,15 +10,14 @@ const Recommendations = () => {
   const dispatch = useDispatch();
   const { recommendation } = useSelector((state) => state.media);
 
-  const commonApiParams = {
-    language: "en-US",
-  };
-
   useEffect(() => {
-    const url = `/movie/${param.id}`;
+    const url = `/${param.mediaType}/${param.id}`;
+    console.log(url);
     const getRecommendations = async () => {
       try {
-        const data = await fetchData(url + "/recommendations", commonApiParams);
+        const data = await fetchData(url + "/recommendations", {
+          language: "en-US",
+        });
         console.log(data);
         dispatch(setRecommendations(data));
       } catch (err) {
@@ -27,8 +26,8 @@ const Recommendations = () => {
     };
 
     getRecommendations();
-  }, [param.id]);
-  return <SliderData name="Recommendations" dataOne={recommendation} />;
+  }, [param.id, param.mediaType, dispatch]);
+  return <SliderData name="Recommendations" dataOne={recommendation} endPoint={param.mediaType} />;
 };
 
 export default Recommendations;

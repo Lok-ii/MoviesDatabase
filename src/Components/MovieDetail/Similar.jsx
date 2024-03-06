@@ -9,12 +9,12 @@ const Similar = () => {
   const param = useParams();
   const dispatch = useDispatch();
   const { similar } = useSelector((state) => state.media);
-  const commonApiParams = {
-    language: "en-US",
-  };
 
   useEffect(() => {
-    const url = `/movie/${param.id}`;
+    const commonApiParams = {
+      language: "en-US",
+    };
+    const url = `/${param.mediaType}/${param.id}`;
     const getSimilar = async () => {
       try {
         const data = await fetchData(url + "/similar", commonApiParams);
@@ -26,8 +26,10 @@ const Similar = () => {
     };
 
     getSimilar();
-  }, [param.id]);
-  return similar.length !== 0 && <SliderData name="Similar" dataOne={similar} />;
+  }, [dispatch, param.id, param.mediaType]);
+  return (
+    similar.length !== 0 && <SliderData name="Similar" dataOne={similar} />
+  );
 };
 
 export default Similar;

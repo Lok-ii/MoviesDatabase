@@ -18,7 +18,7 @@ const OfficialVideos = () => {
     const commonApiParams = {
       language: "en-US",
     };
-    const url = `/movie/${param.id}`;
+    const url = `/${param.mediaType}/${param.id}`;
     const getVideos = async () => {
       try {
         const data = await fetchData(url + "/videos", commonApiParams);
@@ -30,7 +30,7 @@ const OfficialVideos = () => {
     };
 
     getVideos();
-  }, [param.id, dispatch]);
+  }, [param.id, dispatch, param.mediaType]);
 
   // document.addEventListener("click", (e) => {
   //   if ((!(e.target.classList.contains("modal"))) && (!(e.target.classList.contains("svgHover")))) {
