@@ -27,21 +27,30 @@ Ensure you have the following installed before proceeding:
 
 1. **Clone the repository:**
 
-bash ```
+
+ ```
+ 
 git clone https://github.com/Lok-ii/MoviesDatabase.git
-bash ```
+
+ ```
 
 2. **Navigate to the project directory:**
 
-bash```
+
+```
+
 cd MoviesDatabase
-bash```
+
+```
 
 3. **Install the dependencies:**
 
-bash```
+
+```
+
 npm install
-bash```
+
+```
 
 or if you're using yarn:
 
@@ -53,15 +62,21 @@ yarn install
 
 4. **Start the development server:**
 
-bash```
+
+```
+
 npm run dev
-bash```
+
+```
 
 or with yarn:
 
-bash ```
+
+ ```
+ 
 yarn run dev
-bash ```
+
+ ```
 
 
 The application will now be running and accessible at `http://localhost:5173`.
