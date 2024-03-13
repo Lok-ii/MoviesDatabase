@@ -46,7 +46,9 @@ bash```
 or if you're using yarn:
 
 bash```
+
 yarn install
+
 bash```
 
 4. **Start the development server:**
@@ -57,9 +59,9 @@ bash```
 
 or with yarn:
 
-bash```
+bash ```
 yarn run dev
-bash```
+bash ```
 
 
 The application will now be running and accessible at `http://localhost:5173`.
