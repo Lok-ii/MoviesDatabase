@@ -114,7 +114,7 @@ const Home = () => {
 
   return (
     <div className="home w-full text-white flex flex-col items-center">
-      <div className="hero w-full h-[110vh] bg-gradientImage bg-top bg-no-repeat	bg-cover mt-[-5rem] flex flex-col justify-center items-center gap-4">
+      <div className="hero w-full h-[80vh] bg-gradientImage bg-top bg-no-repeat	bg-cover mt-[-5rem] flex flex-col justify-center items-center gap-4">
         <p className="text-[4rem] font-bold tracking-wider	">Welcome.</p>
         <p className="text-xl font-semibold tracking-wider">
           Millions of movies, TV shows and people to discover. Explore now.
