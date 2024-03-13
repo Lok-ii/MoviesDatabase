@@ -29,7 +29,7 @@ Ensure you have the following installed before proceeding:
 
 
  ```
- 
+
 git clone https://github.com/Lok-ii/MoviesDatabase.git
 
  ```
@@ -73,7 +73,7 @@ or with yarn:
 
 
  ```
- 
+
 yarn run dev
 
  ```
@@ -92,7 +92,7 @@ The application will now be running and accessible at `http://localhost:5173`.
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-To contribute to Movie Explorer, please follow these steps:
+To contribute to CineSphere, please follow these steps:
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
