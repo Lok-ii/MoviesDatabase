@@ -45,11 +45,11 @@ bash```
 
 or if you're using yarn:
 
-bash```
+```
 
 yarn install
 
-bash```
+```
 
 4. **Start the development server:**
 
