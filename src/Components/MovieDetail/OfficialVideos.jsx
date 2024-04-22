@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setVideos, setModal, setPlayerVideo } from "../../redux/detailsSlice";
 import { fetchData } from "../../utils/Api";
-// import ReactPlayer from "react-player/lazy";
+import ReactPlayer from "react-player/lazy";
 import Play from "../../assets/svg/Play";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -11,7 +11,9 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 const OfficialVideos = () => {
   const param = useParams();
   const dispatch = useDispatch();
-  const { videos } = useSelector((state) => state.media);
+  const { videos, playerVideo, modalIsOpen } = useSelector(
+    (state) => state.media
+  );
   const baseVideoUrl = "https://www.youtube.com/watch?v=";
 
   useEffect(() => {
@@ -45,9 +47,23 @@ const OfficialVideos = () => {
         {/*  */}
 
         <div
-          className={`w-[70%] h-[80%] fixed flex items-center justify-center modal bg-black`}
+          className={`w-full h-full fixed top-0 z-[1000] left-0 items-center justify-center bg-black ${
+            modalIsOpen ? "flex" : "hidden"
+          }`}
+          onClick={() => dispatch(setModal(false))}
         >
-          {/* <ReactPlayer url={playerVideo} /> */}
+          <ReactPlayer
+            url={playerVideo}
+            width={"80%"}
+            height={"80%"}
+            playing={modalIsOpen}
+            config={{
+              youtube: {
+                playerVars: { showinfo: 0 },
+              },
+            }}
+            controls
+          />
         </div>
         <div className="w-full px-10 h-[12.5rem] flex justify-start gap-4 overflow-x-scroll">
           {videos.map((video) => {
@@ -59,7 +75,7 @@ const OfficialVideos = () => {
                 onClick={(e) => {
                   console.log("Clicked on", e.target);
                   dispatch(setPlayerVideo(`${baseVideoUrl + video.key}`));
-                  dispatch(setModal("flex"));
+                  dispatch(setModal(true));
                 }}
               >
                 <div className="hiddenBackground w-[20rem] h-[11.5rem] rounded-[1rem] top-3 absolute bg-lightBackground z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out"></div>

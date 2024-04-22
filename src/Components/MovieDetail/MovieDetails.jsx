@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { setCurrentMedia, setDetails } from "../../redux/detailsSlice";
+import { setCurrentMedia, setDetails, setPlayerVideo, setModal } from "../../redux/detailsSlice";
 import { fetchData } from "../../utils/Api";
 import poster from "../../assets/poster.png";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -19,6 +19,7 @@ const MovieDetails = () => {
     mediaName,
     crew,
     date,
+    videos
   } = useSelector((state) => state.media);
   const baseUrl = "https://image.tmdb.org/t/p/original";
 
@@ -128,7 +129,14 @@ const MovieDetails = () => {
                 />
               </div>
               <div className="svgHover h-full flex gap-4 items-center group hover:cursor-pointer" >
-                <div className="w-[6rem]">
+                <div className="w-[6rem]" onClick={() => {
+                  dispatch(
+                    setPlayerVideo(
+                      `https://www.youtube.com/watch?v=${videos[0].key}`
+                    )
+                  );
+                  dispatch(setModal(true));
+                }}>
                   <Play />
                 </div>
                 <span className="text text-xl group-hover:text-pinkText transition-all duration-700">
